@@ -68,7 +68,7 @@ def CharacterizeTime ( ) :
 	#MaxMessagesPerBatch 			=	5
     
         CharacterizeTimeFile = open("CharacterizeTimeFile.txt",'w')
-        CharacterizeTimeFile.write("2,10,5")
+        CharacterizeTimeFile.write("3,10,5")
         CharacterizeTimeFile.close()
 
         def get_data(file_name):

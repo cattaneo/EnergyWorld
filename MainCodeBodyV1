@@ -1,3 +1,5 @@
+import os
+
 def Main ( ) :
 	global	NumSimulations , NumTicksEachSimulation , SimTick , \
 			TimeError , SimError , EnergyError , PopulationError , \
@@ -66,31 +68,36 @@ def CharacterizeTime ( ) :
 	#MemoryTicks 					=	2
 	#MaxMessagesPerTickPerAgent 	=	10
 	#MaxMessagesPerBatch 			=	5
-    
-        CharacterizeTimeFile = open("CharacterizeTimeFile.txt",'w')
-        CharacterizeTimeFile.write("2,10,5")
-        CharacterizeTimeFile.close()
+			
+        #CharacterizeTimeFile = open("CharacterizeTimeFile.txt",'w')
+        #CharacterizeTimeFile.write("2,10,5")
+        #CharacterizeTimeFile.close()
+		
+	FileDirectory = os.getcwd()
 
-        def get_data(file_name):
-            try:
-                with open(file_name) as f:
-                    data = f.readline()
-                return (data.strip().split(','))
-            except IOError:
-                print ('File Error' + str(ioerr))
-                return (None)
+	for file in os.listdir(FileDirectory):
+		file.endswith("GetAndCheckAgeGenderDataFile.txt")
+	
+	def get_data(file_name):
+		try:
+			with open(file_name) as f:
+				data = f.readline()
+			return (data.strip().split(','))
+		except IOError:
+			print ('File Error' + str(ioerr))
+			return (None)
         
-        CharacterizeTimeFile = get_data("CharacterizeTimeFile.txt")
-        CharacterizeTimeData = {}
+	CharacterizeTimeFile = get_data("CharacterizeTimeFile.txt")
+    	CharacterizeTimeData = {}
         
-        CharacterizeTimeData['MemoryTicks'] = CharacterizeTimeFile.pop(0)
-        MemoryTicks = int(CharacterizeTimeData['MemoryTicks'])
+    	CharacterizeTimeData['MemoryTicks'] = CharacterizeTimeFile.pop(0)
+    	MemoryTicks = int(CharacterizeTimeData['MemoryTicks'])
 
-        CharacterizeTimeData['MaxMessagesPerTickPerAgent'] = CharacterizeTimeFile.pop(0)
-        MaxMessagesPerTickPerAgent = int(CharacterizeTimeData['MaxMessagesPerTickPerAgent'])
+    	CharacterizeTimeData['MaxMessagesPerTickPerAgent'] = CharacterizeTimeFile.pop(0)
+    	MaxMessagesPerTickPerAgent = int(CharacterizeTimeData['MaxMessagesPerTickPerAgent'])
 
-        CharacterizeTimeData['MaxMessagesPerBatch'] = CharacterizeTimeFile.pop(0)
-        MaxMessagesPerBatch = int(CharacterizeTimeData['MaxMessagesPerBatch']) 
+    	CharacterizeTimeData['MaxMessagesPerBatch'] = CharacterizeTimeFile.pop(0)
+    	MaxMessagesPerBatch = int(CharacterizeTimeData['MaxMessagesPerBatch']) 
     
 #
 # Verify/validate data.
@@ -115,10 +122,15 @@ def CharacterizeSimulations ( ) :
 	#NumTicksEachSimulation	=	10
 	#TolerableVariationLow	=	0.025
 	#TolerableVariationHigh	=	0.05
-    
-        CharacterizeSimulationsFile = open("CharacterizeSimulationsFile.txt",'w')
-        CharacterizeSimulationsFile.write("1,10,0.025,0.05")
-        CharacterizeSimulationsFile.close()
+	
+        #CharacterizeSimulationsFile = open("CharacterizeSimulationsFile.txt",'w')
+        #CharacterizeSimulationsFile.write("1,10,0.025,0.05")
+        #CharacterizeSimulationsFile.close()
+		
+	FileDirectory = os.getcwd()
+
+	for file in os.listdir(FileDirectory):
+		file.endswith("CharacterizeSimulationsFile.txt")
 
         def get_data(file_name):
             try:
@@ -177,9 +189,14 @@ def CharacterizeEnergy ( ) :
 	#CommunityStorageDiversionFactor		=	0.05 	# To be diverted from each Tick's energy allocation after.
 	#MaxCommunityStorageDepletionRate	=	float( 1 ) / float( NumTicksEachSimulation ) # To last the entire simulation, at minimum.
 		
-	CharacterizeEnergyFile = open('CharacterizeEnergyFile.txt','w')
-	CharacterizeEnergyFile.write("0.05,0.05,(float( 1 ) / float( NumTicksEachSimulation))")
-	CharacterizeEnergyFile.close()
+	#CharacterizeEnergyFile = open('CharacterizeEnergyFile.txt','w')
+	#CharacterizeEnergyFile.write("0.05,0.05,0.1")
+	#CharacterizeEnergyFile.close()
+	
+	FileDirectory = os.getcwd()
+
+	for file in os.listdir(FileDirectory):
+		file.endswith("CharacterizeEnergyFile.txt")
 		
         def get_data(file_name):
             try:
@@ -203,7 +220,7 @@ def CharacterizeEnergy ( ) :
 	CommunityStorageDiversionFactor = float(CharacterizeEnergyData['CommunityStorageDiversionFactor'])
 		
 	CharacterizeEnergyData['MaxCommunityStorageDepletionRate'] = CharacterizeEnergyFile.pop(0)
-	MaxCommunityStorageDepletionRate = CharacterizeEnergyData['MaxCommunityStorageDepletionRate']	
+	MaxCommunityStorageDepletionRate = float(CharacterizeEnergyData['MaxCommunityStorageDepletionRate'])
 	
 #
 # Verify/validate data.
@@ -281,9 +298,14 @@ def GetAndCheckAgeGenderData ( ) :
 	#MaturityTick 						=	18
 	#PopulationCountBasis 				=	0.2 * 0.01 # StatsCan data shows % for 5-year periods.
 	
-	GetAndCheckAgeGenderDataFile = open('GetAndCheckAgeGenderDataFile.txt','w')
-	GetAndCheckAgeGenderDataFile.write("10 , 100000 , 99 , 65 , 18 , 0.002")
-	GetAndCheckAgeGenderDataFile.close()
+	#GetAndCheckAgeGenderDataFile = open('GetAndCheckAgeGenderDataFile.txt','w')
+	#GetAndCheckAgeGenderDataFile.write("10 , 100000 , 99 , 65 , 18 , 0.002")
+	#GetAndCheckAgeGenderDataFile.close()
+	
+	FileDirectory = os.getcwd()
+
+	for file in os.listdir(FileDirectory):
+		file.endswith("GetAndCheckAgeGenderDataFile.txt")
 	
 	def get_data(file_name):
 	    try:
@@ -392,10 +414,15 @@ def GetAndCheckBirthsDeathsData ( ) :
 	
 	#DeathRate			=	round( ( float( 539.8 ) + float( 531.3 ) + float( 515.0 )  + float( 501.0 ) + float ( 489.0 ) ) / 500000.0 , 4 )
 	
-	GetAndCheckBirthsDeathsDataFile = open("GetAndCheckBirthsDeathsDataFile.txt","w")
-	GetAndCheckBirthsDeathsDataFile.write("2 , 65 , 0.0111 , 0.0052")
-	GetAndCheckBirthsDeathsDataFile.close()
+	#GetAndCheckBirthsDeathsDataFile = open("GetAndCheckBirthsDeathsDataFile.txt","w")
+	#GetAndCheckBirthsDeathsDataFile.write("2 , 65 , 0.0111 , 0.0052")
+	#GetAndCheckBirthsDeathsDataFile.close()
 	
+	FileDirectory = os.getcwd()
+
+	for file in os.listdir(FileDirectory):
+		file.endswith("GetAndCheckBirthsDeathsDataFile.txt")
+			
 	def get_data(file_name):
 	    try:
 	        with open(file_name) as f:
@@ -549,10 +576,15 @@ def GetAndCheckBiasesData ( ) :
 	#DenialEffectLow 			=	0.1
 	#DenialEffectHigh 			=	0.3
 	
-	GetAndCheckBiasesDataFile = open("GetAndCheckBiasesDataFile.txt","w")
-	GetAndCheckBiasesDataFile.write("0.1 , 0.5 , 0.1 , 0.3 , 0.2 , 0.4 , 0.1 , 0.5 , 0.3 , 0.6 , 0.1 , 0.3")
-	GetAndCheckBiasesDataFile.close()
+	#GetAndCheckBiasesDataFile = open("GetAndCheckBiasesDataFile.txt","w")
+	#GetAndCheckBiasesDataFile.write("0.1 , 0.5 , 0.1 , 0.3 , 0.2 , 0.4 , 0.1 , 0.5 , 0.3 , 0.6 , 0.1 , 0.3")
+	#GetAndCheckBiasesDataFile.close()
 	
+	FileDirectory = os.getcwd()
+
+	for file in os.listdir(FileDirectory):
+		file.endswith("GetAndCheckBiasesDataFile.txt")
+			
 	def get_data(file_name):
 	    try:
 	        with open(file_name) as f:
@@ -659,10 +691,15 @@ def GetAndCheckNeedsData ( ) :
 #
 	#InitialWealthFactor		=	1.0
 	
-	GetAndCheckNeedsDataFile = open("GetAndCheckNeedsDataFile.txt","w")
-	GetAndCheckNeedsDataFile.write("75 , 100 , 50 , 75 , 15 , 20 , 10 , 15 , 1 , 5 , 1 , 3 , 1.0")
-	GetAndCheckNeedsDataFile.close()
+	#GetAndCheckNeedsDataFile = open("GetAndCheckNeedsDataFile.txt","w")
+	#GetAndCheckNeedsDataFile.write("75 , 100 , 50 , 75 , 15 , 20 , 10 , 15 , 1 , 5 , 1 , 3 , 1.0")
+	#GetAndCheckNeedsDataFile.close()
 	
+	FileDirectory = os.getcwd()
+
+	for file in os.listdir(FileDirectory):
+		file.endswith("GetAndCheckNeedsDataFile.txt")
+	        
 	def get_data(file_name):
 	    try:
 	        with open(file_name) as f:
